@@ -95,7 +95,7 @@ public class SystemMasterDao {
          
     }
      
-     
+
     
     public  List<Family>  findUnbalanced() throws SQLException{
          String sql = "select * from family";
@@ -117,144 +117,12 @@ public class SystemMasterDao {
       return familyList;
          
     }
-    
-    
-//    public void createOrder(OrderDetail order){
-//             
-//     
-//      // Creating Credentials 
-//       
-//         MongoCollection<org.bson.Document> collection = database.getCollection("orders"); 
-//        org.bson.Document document = new org.bson.Document("title", "MongoDB") 
-//      .append("uname", order.getClintUserName())
-//      .append("item", order.getOrderItem()) 
-//      .append("cnt", order.getCnt()); 
-//
-//      collection.insertOne(document); 
-//    }
-//     public List <OrderDetail>  getOrder( ){
-//             
-//     
-//      // Creating Credentials 
-//      MongoCollection<org.bson.Document> collection = database.getCollection("orders"); 
-// FindIterable<org.bson.Document> iterDoc = collection.find(); 
-//      int i = 1; 
-//    Iterator it=iterDoc.iterator();
-//    List <OrderDetail>  orderLt =new ArrayList <>();
-//while (it.hasNext()) {  
-//             Document doc=(  Document) it.next();
-//        
-//                           OrderDetail order = new OrderDetail();
-//           order.setClintUserName((String)doc.get("uname")  );
-//           order.setOrderItem((String)doc.get("item")  );
-//            orderLt.add(order);
-//
-//}
-//return  orderLt;
-//    }
-//    
-//     
-//     
-//    public void createInventory(InventoryDetail inventory){
-//             
-//     
-//      // Creating Credentials 
-//        
-//         MongoCollection<org.bson.Document> collection = database.getCollection("inventory"); 
-//        org.bson.Document document = new org.bson.Document("title", "MongoDB") 
-//      .append("itemName", inventory.getItemName())
-//      .append("cnt", inventory.getCnt()) 
-//      .append("lock", inventory.getIsLock())
-//                .append("price", inventory.getPrice()); 
-//
-//      collection.insertOne(document); 
-//    }
-//     public List <InventoryDetail>  getInventory( ){
-//             
-//     
-//      // Creating Credentials 
-//      MongoCollection<org.bson.Document> collection = database.getCollection("inventory"); 
-// FindIterable<org.bson.Document> iterDoc = collection.find(); 
-//      int i = 1; 
-//    Iterator it=iterDoc.iterator();
-//    List <InventoryDetail>   inventoryLt =new ArrayList <>();
-//while (it.hasNext()) {  
-//             Document doc=(  Document) it.next();
-//        
-//                           InventoryDetail inventory = new InventoryDetail((String)doc.get("itemName"),
-//                                    (Integer)doc.get("cnt"),(Boolean)doc.get("lock"), (Integer)doc.get("price"));
-//            inventoryLt.add( inventory);
-//
-//}
-//return   inventoryLt;
-//    }
-//     
-//    public void createAccount(AccountDetail account){
-//             
-//     
-//      // Creating Credentials 
-//        
-//         MongoCollection<org.bson.Document> collection = database.getCollection("account"); 
-//        org.bson.Document document = new org.bson.Document("title", "MongoDB") 
-//      .append("username",  account.getUserName()); 
-//      
-//
-//      collection.insertOne(document); 
-//    }
-//     public List <AccountDetail>  getAccount( ){
-//             
-//     
-//      // Creating Credentials 
-//      MongoCollection<org.bson.Document> collection = database.getCollection("account"); 
-// FindIterable<org.bson.Document> iterDoc = collection.find(); 
-// 
-// 
-//    Iterator it=iterDoc.iterator();
-//    List <AccountDetail>  accountLt =new ArrayList <>();
-//while (it.hasNext()) {  
-//             Document doc=(  Document) it.next();
-//        
-//                          AccountDetail account = new AccountDetail((String) doc.get("username"),
-//                           (Integer)doc.get("cnt"));
-//           
-//            accountLt .add(account);
-//
-//}
-//return  accountLt ;
-//    }
-//     
-//     
-//     public int  placeOrder(AccountDetail accountDetail,InventoryDetail invetoryDetail){
-//             
-//     
-//      // Creating Credentials 
-//      MongoCollection<org.bson.Document> inventoryCollection = database.getCollection("inventory"); 
-// MongoCollection<org.bson.Document> accountCollection = database.getCollection("account");
-// MongoCollection<org.bson.Document> orderCollection = database.getCollection("order");
-// List <Bson> bson =new ArrayList<>();
-// //lock down the item befor updtating it so another person can not change the count 
-// UpdateResult updateResult=inventoryCollection.updateMany(Filters.and(Filters.eq("itemName", invetoryDetail.getItemName()),Filters.gte("cnt", invetoryDetail.getCnt()),Filters.eq("lock", false)), Updates.set("lock", "true"));       
-// System.out.println(updateResult.getModifiedCount());
-// if(updateResult.getModifiedCount()==1){
-// FindIterable<org.bson.Document> iterDoc =inventoryCollection.find(Filters.eq("itemName", invetoryDetail.getItemName()));
-// 
-// Iterator it=iterDoc.iterator();
-// InventoryDetail inventory=new InventoryDetail() ;
-// if(it.hasNext()){
-//             Document doc=(  Document) it.next();
-//        
-//                           inventory.setCnt((Integer)doc.get("cnt"));
-//                                    
-// }
-// OrderDetail orderdetail =new OrderDetail(accountDetail.getUserName(),invetoryDetail.getItemName(),invetoryDetail.getCnt());
-// createOrder(orderdetail);
-// //we can also update persons total due to sytem 
-//inventoryCollection.updateOne(Filters.eq("itemName", invetoryDetail.getItemName()), Updates.set("lock", "true"));           
-//inventoryCollection.updateOne(Filters.eq("itemName", invetoryDetail.getItemName()), Updates.set("cnt",inventory.getCnt()- invetoryDetail.getCnt() ));           
-//return  1;
-//}
-//return  0;
-//   }
+     public void   balanceTree(String id) throws SQLException{
+         String sql = "update person set power = 0 where familyId = " + id;
+         System.out.println(sql);
+          stmt.executeUpdate(sql);
+         
+    }
 
     }
      

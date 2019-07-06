@@ -77,4 +77,15 @@ public class UniverseController {
  
       
     }
+    
+    
+     @GET
+    @Path("/balanceTree")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void   balanceTree(@QueryParam("id")String id) throws IOException, ClassNotFoundException, SQLException{
+   SystemMasterDao systemMasterDao =new SystemMasterDao();
+    systemMasterDao.balanceTree(id);
+ 
+      
+    }
 }
