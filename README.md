@@ -36,7 +36,7 @@ API type:- GET
 
 Api :-  http://localhost:8081/universe/webresources/universe/findUnbalanced
 
-I will set the power of all person to 0 this is to give the sum of the power of all universe with that family member to 0 equal to the other universe with 0 members
+I will set the power of all person to 0 this will give 2nd chance to all the members of the family to become balanced family
 
 
 
